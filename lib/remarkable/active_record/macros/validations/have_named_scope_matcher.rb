@@ -23,7 +23,11 @@ module Remarkable # :nodoc:
                    "please give :with as option. have_scope(:#{$1}, :with => [#{$2}])"
               @spec.instance_eval("#{subject_class}.#{@scope_call}")
             elsif @scope_opts[:with]
-              subject_class.send(@scope_call, *@scope_opts.delete(:with))
+              if @scope_opts[:with].respond_to?(:size)
+                subject_class.send(@scope_call, *@scope_opts.delete(:with))
+              else
+                subject_class.send(@scope_call, @scope_opts.delete(:with))
+              end
             else
               subject_class.send(@scope_call)
             end

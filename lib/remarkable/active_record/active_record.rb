@@ -1,3 +1,4 @@
+require 'active_support/test_case'
 require 'remarkable/active_record/helpers'
 %w( database associations validations callbacks ).each do |folder|
   Dir[File.join(File.dirname(__FILE__), "macros", folder, '*.rb')].each do |file|
@@ -9,7 +10,7 @@ require 'remarkable/active_record/macros'
 module Spec
   module Rails
     module Example
-      class ModelExampleGroup
+      class ModelExampleGroup < ActiveSupport::TestCase
         include Remarkable::Assertions
         include Remarkable::ActiveRecord::Matchers
         extend Remarkable::ActiveRecord::Macros

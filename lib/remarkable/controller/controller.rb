@@ -1,3 +1,4 @@
+require 'active_support/test_case'
 require 'remarkable/controller/helpers'
 Dir[File.join(File.dirname(__FILE__), "macros", '*.rb')].each do |file|
   require file
@@ -7,7 +8,7 @@ require 'remarkable/controller/macros'
 module Spec
   module Rails
     module Example
-      class ControllerExampleGroup
+      class ControllerExampleGroup < FunctionalExampleGroup
         include Remarkable::Assertions
         include Remarkable::Controller::Matchers
         extend Remarkable::Controller::Macros
@@ -16,7 +17,7 @@ module Spec
         include Remarkable::Private
       end
 
-      class RoutingExampleGroup
+      class RoutingExampleGroup < ActionController::TestCase
         include Remarkable::Assertions
         include Remarkable::Controller::Matchers
         extend Remarkable::Controller::Macros
